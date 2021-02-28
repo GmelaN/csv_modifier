@@ -29,5 +29,5 @@ for news in content[1:]:
 
 listToWrite.append(sumList + [standardDate]) # 마지막 날 합계
         
-with open(filename + "merged.csv", 'w', encoding="UTF8", newline="") as f:
+with open(filename + "_merged.csv", 'w', encoding="UTF8", newline="") as f:
     csv.writer(f).writerows(listToWrite)
