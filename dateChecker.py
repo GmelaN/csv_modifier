@@ -2,7 +2,7 @@ import csv
 import datetime
 import sys
 
-DATE = -1 # csv 파일 내 날짜 행의 위치
+DATE = 0 # csv 파일 내 날짜 행의 위치
 
 def makeDateObject(string):
     '''
