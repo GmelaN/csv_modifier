@@ -1,2 +1,0 @@
-http://word.snu.ac.kr/kosac/corpus.php //KOSAC
-https://konlpy-ko.readthedocs.io/ko/v0.4.3/ //konlpy
