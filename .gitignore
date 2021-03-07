@@ -4,3 +4,6 @@
 *.csv#
 a
 b
+*.docx
+*.pdf
+*.hwp
