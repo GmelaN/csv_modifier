@@ -14,11 +14,9 @@ TIME = -1
 csvFile = "./newsList_raw"
 
 with open(csvFile + ".csv", 'r', encoding="utf8", newline="") as f:
-    c = list(csv.reader(f))
+    contents = list(csv.reader(f))
 
 wordList = {
-    "코로나": 0, "코로나 장전": 0, "코로나 장중": 0, "코로나 장외": 0,
-    "우한 폐렴": 0, "우한 폐렴 장전": 0, "우한 폐렴 장중": 0, "우한 폐렴 장외": 0,
     "제약":0, "제약 장전":0, "제약 장중":0, "제약 장외":0,
     "바이오":0, "바이오 장전":0, "바이오 장중":0, "바이오 장외":0,
     "백신":0, "백신 장전":0, "백신 장중":0, "백신 장외":0,
@@ -26,21 +24,26 @@ wordList = {
     "확진":0, "확진 장전":0, "확진 장중":0, "확진 장외":0,
     "누적":0, "누적 장전":0, "누적 장중":0, "누적 장외":0,
     "사망":0, "사망 장전":0, "사망 장중":0, "사망 장외":0,
-    "신규":0, "신규 장전":0, "신규 장중":0, "신규 장외":0
+    "신규":0, "신규 장전":0, "신규 장중":0, "신규 장외":0,
+    "코로나": 0, "코로나 장전": 0, "코로나 장중": 0, "코로나 장외": 0,
+    "우한 폐렴": 0, "우한 폐렴 장전": 0, "우한 폐렴 장중": 0, "우한 폐렴 장외": 0,
+    "우한폐렴": 0, "우한폐렴 장전": 0, "우한폐렴 장중": 0, "우한폐렴 장외": 0,
+    "누적 확진":0, "누적 확진 장전":0, "누적 확진 장중":0, "누적 확진 장외":0,
+    "누적확진":0, "누적확진 장전":0, "누적확진 장중":0, "누적확진 장외":0,
+    "신규 확진":0, "신규 확진 장전":0, "신규 확진 장중":0, "신규 확진 장외":0,
+    "신규확진":0, "신규확진 장전":0, "신규확진 장중":0, "신규확진 장외":0,
+    "집단 감염":0, "집단 감염 장전":0, "집단 감염 장중":0, "집단 감염 장외":0,
+    "집단감염":0, "집단감염 장전":0, "집단감염 장중":0, "집단감염 장외":0,
     }
 
 wordList_keywords = [ list(wordList.keys())[i] for i in range(0, len(wordList.keys()), 4) ]
 
+listToWrite = [ (["날짜"] + [i for i in wordList.keys()]) ] # 기록할 최종 리스트 - 헤더 행을 미리 append한 상태임
 
-
-listToWrite = [([i for i in wordList.keys()] + ["날짜", "시각"])] # 기록할 최종 리스트 - 헤더 행을 미리 append한 상태임
-
-for news in c[1:]:
+for news in contents[1:]:
     for word in wordList_keywords:
-        newsString = news[TITLE] + news[SUBTITLE] # 한 기사의 제목, 부제 행 정보를 담은 문자열
+        newsString = news[TITLE] + ' ' + news[SUBTITLE] # 한 기사의 제목, 부제 행 정보를 담은 문자열
         sum_ = newsString.count(word) # newsString으로부터 키워드 횟수를 구함
-
-        # sum_ = news[TITLE].count(word) + news[SUBTITLE].count(word)
 
         # 한 기사에서 word가 나온 횟수를, word 횟수의 총합 변수에 더함
         wordList[word] += sum_
@@ -59,7 +62,7 @@ for news in c[1:]:
 
     # write할 최종 리스트에 현재 기사의 키워드 빈도 결과 리스트를 append
     listToWrite.append(
-        list(wordList.values()) + [news[DATE], news[TIME]]
+        [news[DATE]] + list(wordList.values())
         )
     
     #wordList item을 모두 0으로 초기화

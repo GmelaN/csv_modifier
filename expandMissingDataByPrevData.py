@@ -143,7 +143,7 @@ csvIdx += 1 # 인덱스 1 증가
 
 #0으로 채울 인덱스 선택
 # fillZeroIdx = [int(i) for i in input("빈 칸일 때, 0으로 채울 항목의 번호를 입력하십시오(0부터 시작): ").split()]
-fillZeroIdx = [2, 3, 7, 8]
+# fillZeroIdx = [2, 3, 7, 8]
 
 currentDate = startDate # currentDate = 처리중인 날짜
 
@@ -162,12 +162,12 @@ while currentDate <= endDate and csvIdx < len(csvContent): # currentDate가 마�
             listToWrite = [ str(currentDate).replace('-', dateSeperator) ] # 기록할 행 리스트: 첫 번째 열은 날짜 / 파일에서 사용하는 날짜 구분자로 치환해줌
 
             for i in range(len(prevContent)): # 이전 날짜의 csv 파일 내용을 기록할 행 리스트에 append - 날짜 정보는 제외
-                if i == DATE: continue # 날짜 정보인 경우 continue
-                elif i in fillZeroIdx: listToWrite.append(0) # 0으로 채울 정보인 경우 0을 append
-                else: listToWrite.append(prevContent[i])
+                # if i == DATE: continue # 날짜 정보인 경우 continue
+                # elif i in fillZeroIdx: listToWrite.append(0) # 0으로 채울 정보인 경우 0을 append
+                listToWrite.append(prevContent[i][DATE + 1:])
             
             #debug: 이전 날짜 데이터의 날짜 부분을 같이 쓰기 (데이터의 원래 날짜 정보도 출력)
-            # listToWrite.append(prevContent[DATE])
+            listToWrite.append(prevContent[DATE])
 
             #만든 리스트 내용을 csv 파일에 기록
             output.writerow(listToWrite)

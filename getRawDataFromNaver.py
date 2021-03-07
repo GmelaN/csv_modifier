@@ -82,10 +82,10 @@ except:
 jsonFileLength = len(jsonObj)
 
 #뉴스 기사의 각 인덱스 리스트
-jsonDicKeys = ["tit", "subcontent", "ohnm", "dt"]
+jsonDicKeys = ["tit", "subcontent", "dt"]
 
 #제목 열 기록
-csvObj.writerow(["제목", "부제", "언론사", "날짜", "시각"])
+csvObj.writerow(["제목", "부제", "날짜", "시각"])
 
 for i in range(jsonFileLength):
     #csv 파일의 각 열이 될 리스트
